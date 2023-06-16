@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
 {
     struct ExecBase *SysBase;
     struct Library *DOSBase;
-    
+
     struct MsgPort *ParMP;                 // Pointer to reply port
     struct IOExtPar *ParIO;                // Pointer to I/O request
     ULONG waitMask;                        // Collect all signals here
@@ -55,8 +55,8 @@ int main(int argc, char *argv[])
     UBYTE parReadBuffer[READ_BUFFER_SIZE]; // We buffer the incoming data in this one
 
 #if DEBUG
-    char *ddrb = (char *)PARALLEL_DDR; // Pointer to data direction register
-    char *ddra = (char *)PAR_CTRL_DDR; // Pointer to control line data direction register
+    UBYTE *ddra = (UBYTE *)PAR_CTRL_DDR; // Pointer to control line data direction register
+    UBYTE *ddrb = (UBYTE *)PARALLEL_DDR; // Pointer to data direction register
 #endif
 
     SysBase = *(struct ExecBase **)4UL;
@@ -101,8 +101,8 @@ int main(int argc, char *argv[])
                     }
 
 #if DEBUG
-                    KPrintF((CONST_STRPTR) "DDRA: %04lx\n", ddra[0]);
-                    KPrintF((CONST_STRPTR) "DDRB: %04lx\n", ddrb[0]);
+                    KPrintF((CONST_STRPTR) "DDRA: %02lx\n", ddra[0]);
+                    KPrintF((CONST_STRPTR) "DDRB: %02lx\n", ddrb[0]);
 #endif
 
                     Write(Output(), "Sleeping until CTRL-C, CTRL-F, or write finish\n", 47);
